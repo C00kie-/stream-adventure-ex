@@ -1,14 +1,26 @@
-var through = require('through2')
-var fs = require('fs')
+var through = require('through2'),
 
-fs.createReadStream('out4.txt')
-.pipe(through(function(chunk, enc, callback){
+ tr = through(function(buf, next){
+	this.push(buf.toString().toUpperCase());
+	next();
+});
+
+process.stdin.pipe(tr).pipe(process.stdout);
+
+/*var through = require('through2')
+
+process.stdin
+.pipe(through(function(chunk, enc, callback, err){
+	if (err)
+	{
+		return (err)
+	}
 	this.push(chunk)
 	callback()
 }))
 
-.pipe(fs.createWriteStream('./out.txt'))
-
+.toUpperCase().pipe(stdout)
+*/
 /*
 
 var tr = through(write, end){
